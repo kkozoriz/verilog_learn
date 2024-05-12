@@ -1,0 +1,77 @@
+#! /usr/local/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 10;
+:vpi_module "/usr/local/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/usr/local/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/local/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/local/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/usr/local/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x7f93380055a0 .scope module, "testbench" "testbench" 2 4;
+ .timescale -9 -10;
+v0x6000025fc630_0 .var "clk", 0 0;
+S_0x7f93380043c0 .scope module, "counter" "counter" 2 11, 3 1 0, S_0x7f93380055a0;
+ .timescale -9 -10;
+    .port_info 0 /INPUT 1 "clk";
+    .port_info 1 /OUTPUT 1 "clk2";
+v0x6000025fc2d0_0 .net *"_ivl_0", 31 0, L_0x6000026fc0a0;  1 drivers
+L_0x7f9330078008 .functor BUFT 1, C4<0000000000000000000000000000>, C4<0>, C4<0>, C4<0>;
+v0x6000025fc360_0 .net *"_ivl_3", 27 0, L_0x7f9330078008;  1 drivers
+L_0x7f9330078050 .functor BUFT 1, C4<00000000000000000000000000001001>, C4<0>, C4<0>, C4<0>;
+v0x6000025fc3f0_0 .net/2u *"_ivl_4", 31 0, L_0x7f9330078050;  1 drivers
+v0x6000025fc480_0 .net "clk", 0 0, v0x6000025fc630_0;  1 drivers
+v0x6000025fc510_0 .net "clk2", 0 0, L_0x6000026fc140;  1 drivers
+v0x6000025fc5a0_0 .var "cnt", 3 0;
+E_0x6000002f8a80 .event posedge, v0x6000025fc480_0;
+L_0x6000026fc0a0 .concat [ 4 28 0 0], v0x6000025fc5a0_0, L_0x7f9330078008;
+L_0x6000026fc140 .cmp/eq 32, L_0x6000026fc0a0, L_0x7f9330078050;
+    .scope S_0x7f93380043c0;
+T_0 ;
+    %pushi/vec4 0, 0, 4;
+    %store/vec4 v0x6000025fc5a0_0, 0, 4;
+    %end;
+    .thread T_0;
+    .scope S_0x7f93380043c0;
+T_1 ;
+    %wait E_0x6000002f8a80;
+    %load/vec4 v0x6000025fc510_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_1.0, 8;
+    %pushi/vec4 0, 0, 4;
+    %assign/vec4 v0x6000025fc5a0_0, 0;
+    %jmp T_1.1;
+T_1.0 ;
+    %load/vec4 v0x6000025fc5a0_0;
+    %addi 1, 0, 4;
+    %assign/vec4 v0x6000025fc5a0_0, 0;
+T_1.1 ;
+    %jmp T_1;
+    .thread T_1;
+    .scope S_0x7f93380055a0;
+T_2 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x6000025fc630_0, 0, 1;
+    %end;
+    .thread T_2;
+    .scope S_0x7f93380055a0;
+T_3 ;
+    %delay 10, 0;
+    %load/vec4 v0x6000025fc630_0;
+    %inv;
+    %store/vec4 v0x6000025fc630_0, 0, 1;
+    %jmp T_3;
+    .thread T_3;
+    .scope S_0x7f93380055a0;
+T_4 ;
+    %vpi_call 2 14 "$dumpvars" {0 0 0};
+    %vpi_call 2 15 "$display", "Test started..." {0 0 0};
+    %delay 500, 0;
+    %vpi_call 2 16 "$finish" {0 0 0};
+    %end;
+    .thread T_4;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "testbench.v";
+    "./counter.v";
